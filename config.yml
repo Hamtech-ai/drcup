@@ -1,0 +1,44 @@
+# The config recipe.
+# https://rasa.com/docs/rasa/model-configuration/
+recipe: default.v1
+
+# Configuration for Rasa NLU.
+# https://rasa.com/docs/rasa/nlu/components/
+language: fa
+
+pipeline:
+  - name: WhitespaceTokenizer
+  # - name: LanguageModelFeaturizer
+    # alias: "bert-embdds"
+    # model_weights: "HooshvareLab/bert-fa-base-uncased"
+    # model_name: "bert"
+  - name: CountVectorsFeaturizer
+    alias: "one-hot"
+  - name: CountVectorsFeaturizer
+    alias: "bov"
+    analyzer: char_wb
+    min_ngram: 2
+    max_ngram: 5
+  - name: DIETClassifier
+    batch_strategy: sequence
+    featurizers: ["one-hot", "bov"]
+    epochs: 10
+    num_transformer_layers: 2
+    drop_rate: 0.2
+    random_seed: 1
+
+# Configuration for Rasa Core.
+# https://rasa.com/docs/rasa/core/policies/
+policies:
+# # No configuration for policies was provided. The following default policies were used to train your model.
+# # If you'd like to customize them, uncomment and adjust the policies.
+# # See https://rasa.com/docs/rasa/policies for more information.
+#   - name: MemoizationPolicy
+  - name: RulePolicy
+#   - name: UnexpecTEDIntentPolicy
+#     max_history: 5
+#     epochs: 100
+#   - name: TEDPolicy
+#     max_history: 5
+#     epochs: 100
+#     constrain_similarities: true

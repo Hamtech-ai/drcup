@@ -1,0 +1,30 @@
+version: "3.0"
+
+rules:
+
+- rule: Say Recipe any time
+  steps:
+  - intent: recipe
+  - action: action_say_recipe
+  
+- rule : say price of any coffee
+  steps:
+  - intent: coffee_price
+  - action: action_say_price
+
+- rule : say what is the information about the coffee
+  steps:
+  - intent: what_is
+  - action: action_say_what_is
+  
+- rule : say hello
+  steps:
+  - intent: greet
+  - action: action_say_hello
+  
+- rule : say goodbye
+  steps:
+  - intent: goodbye
+  - action: action_say_goodbye
+  
+
