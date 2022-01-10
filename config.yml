@@ -8,24 +8,22 @@ language: fa
 
 pipeline:
   - name: WhitespaceTokenizer
-  # - name: LanguageModelFeaturizer
-    # alias: "bert-embdds"
-    # model_weights: "HooshvareLab/bert-fa-base-uncased"
-    # model_name: "bert"
+  - name: "components.albert.AlbertFeaturizer"
+    alias: "bert-embdds"
   - name: CountVectorsFeaturizer
-    alias: "one-hot"
+    alias: one-hot
   - name: CountVectorsFeaturizer
-    alias: "bov"
+    alias: bov
     analyzer: char_wb
-    min_ngram: 2
+    min_ngram: 1
     max_ngram: 5
   - name: DIETClassifier
     batch_strategy: sequence
-    featurizers: ["one-hot", "bov"]
-    epochs: 10
-    num_transformer_layers: 2
-    drop_rate: 0.2
+    epochs: 25
+    number_of_transformer_layers: 2
+    drop_rate: 0.3
     random_seed: 1
+
 
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/
